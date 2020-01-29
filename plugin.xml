@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-dfu-update" version="1.0.3">
+    <name>DFU Update</name>
+    <description>Use Nordic Semiconductor's Device Firmware Update (DFU) service to update a Bluetooth LE device</description>
+    <keywords>cordova,update,dfu,firmware,upgrade</keywords>
+    <repo>https://github.com/HansKrywaa/cordova-plugin-dfu-update.git</repo>
+    <issue>https://github.com/HansKrywaa/cordova-plugin-dfu-update/issues</issue>
+
+    <engines>
+        <engine name="cordova" version="^9.0.0"/>
+        <engine name="cordova-android" version="^8.0.0" />
+        <engine name="cordova-ios" version="^5.0.0" />
+    </engines>
+
+    <js-module src="www/dfuUpdate.js" name="DfuUpdate">
+        <clobbers target="window.DfuUpdate" />
+    </js-module>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="DfuUpdate">
+                <param name="android-package" value="com.hanskrywaa.DfuUpdate" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.hanskrywaa.NotificationActivity" />
+            <service android:name="com.hanskrywaa.DfuService" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+            <uses-permission android:name="android.permission.BLUETOOTH"/>
+        </config-file>
+
+        <framework src="no.nordicsemi.android:dfu:1.9.0"/>
+        <framework src="androidx.lifecycle:lifecycle-extensions:2.1.0-alpha04"/>
+
+        <source-file src="src/android/DfuUpdate.java" target-dir="src/com/hanskrywaa" />
+        <source-file src="src/android/DfuService.java" target-dir="src/com/hanskrywaa"/>
+        <source-file src="src/android/NotificationActivity.java" target-dir="src/com/hanskrywaa"/>
+    </platform>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/widget">
+            <feature name="DfuUpdate">
+                <param name="ios-package" value="DfuUpdate" onload="true" />
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/DfuUpdate-Bridging-Header.h" />
+        <source-file src="src/ios/DfuUpdate.swift"  />
+
+        <podspec>
+            <config>
+                <source url="https://github.com/CocoaPods/Specs.git"/>
+            </config>
+            <pods use-frameworks="true">
+                <pod name="iOSDFULibrary" spec="4.6.1" />
+            </pods>
+        </podspec>
+
+        <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
+        <dependency id="cordova-plugin-file" version="^6.0.1" />
+    </platform>
+</plugin>

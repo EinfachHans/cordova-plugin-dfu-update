@@ -1,0 +1,44 @@
+{
+  "version": "1.0.3",
+  "name": "cordova-plugin-dfu-update",
+  "description": "Use Nordic Semiconductor's Device Firmware Update (DFU) service to update a Bluetooth LE device",
+  "cordova": {
+    "id": "cordova-plugin-dfu-update",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "1.0.0": {
+        "cordova-android": "^8.0.0",
+        "cordova-ios": "^5.0.0",
+        "cordova": "^9.0.0"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HansKrywaa/cordova-plugin-dfu-update.git"
+  },
+  "keywords": [
+    "cordova",
+    "update",
+    "dfu",
+    "device",
+    "firmware",
+    "upgrade",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Hans Krywalsky",
+  "license": "Apache 2.0",
+  "main": "./src/ionic/index.js",
+  "types": "./src/ionic/index.d.ts",
+  "bugs": {
+    "url": "https://github.com/HansKrywaa/cordova-plugin-dfu-update/issues"
+  },
+  "homepage": "https://github.com/HansKrywaa/cordova-plugin-dfu-update.git"
+}

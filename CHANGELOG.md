@@ -1,5 +1,5 @@
 # Changelog
 
-## 0.0.1
+## 1.0.4
 
-- Initial release
+- Use new Cocopods Repo: `<source url="https://cdn.cocoapods.org/"/>`

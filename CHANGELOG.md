@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6
+- Readme Link fixed
+- Cordova Android Required Version fixed (closes #1)
+
 ## 1.0.5
 
 - Better Engine Support 

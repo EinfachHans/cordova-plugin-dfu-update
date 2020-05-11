@@ -1,6 +1,6 @@
 # Cordova Nordic DFU plugin
 
-This plugin allows you to use the Nordic DFU service on your BLE devices to update the firmware. See the [Nordic documentation](https://www.nordicsemi.com/DocLib/Content/SDK_Doc/nRF5_SDK/v12-2-0/lib_bootloader_dfu) for more details.
+This plugin allows you to use the Nordic DFU service on your BLE devices to update the firmware. See the [Nordic documentation](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v12.2.0/index.html) for more details.
 
 ## Supported
 

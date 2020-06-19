@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.7
+- Add Android Permission: FOREGROUND_SERVICE (4ec3cc92)
+
 ## 1.0.6
 - Readme Link fixed
 - Cordova Android Required Version fixed (closes #1)

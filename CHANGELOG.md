@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.8
+- Cordova Version match ``>= 9.0.0``
+
 ## 1.0.7
 - Add Android Permission: FOREGROUND_SERVICE (4ec3cc92)
 

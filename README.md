@@ -1,4 +1,4 @@
-# Cordova Nordic DFU plugin
+# Cordova Nordic DFU plugin [![npm version](https://badge.fury.io/js/cordova-plugin-dfu-update.svg)](https://badge.fury.io/js/cordova-plugin-dfu-update)
 
 This plugin allows you to use the Nordic DFU service on your BLE devices to update the firmware. See the [Nordic documentation](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v12.2.0/index.html) for more details.
 

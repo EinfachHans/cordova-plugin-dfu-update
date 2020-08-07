@@ -1,4 +1,4 @@
-package com.hanskrywaa;
+package de.hanskrywaa;
 
 import android.Manifest;
 import android.app.Activity;

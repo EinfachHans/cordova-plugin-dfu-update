@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.0
+- Change Android Package Name (Not Breaking)
+
 ## 1.0.8
 - Cordova Version match ``>= 9.0.0``
 

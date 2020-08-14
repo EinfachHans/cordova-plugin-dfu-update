@@ -25,7 +25,7 @@ run:
 
 ## API
 
-The API is available as a global `NordicUpdate` object
+The API is available as a global `window.DfuUpdate` object
 
 ### Update Firmware
 

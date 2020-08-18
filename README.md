@@ -1,10 +1,11 @@
 # DfuUpdate Cordova Plugin
+![Maintenance](https://img.shields.io/maintenance/yes/2020)
 [![npm version](https://badge.fury.io/js/cordova-plugin-dfu-update.svg)](https://badge.fury.io/js/cordova-plugin-dfu-update)
 
 This [Cordova](https://cordova.apache.org) Plugin is a Wrapper to use Nordic Semiconductor's Device Firmware Update (DFU) service to update a Bluetooth LE device.
 
 It currently uses [iOSDFULibrary](https://cocoapods.org/pods/iOSDFULibrary) (Version `4.8.0`) on iOS and 
-[Android-DFU-Library](https://github.com/NordicSemiconductor/Android-DFU-Library) (Default-Version `1.9.0`) on Android. 
+[Android-DFU-Library](https://github.com/NordicSemiconductor/Android-DFU-Library) (Default-Version `1.11.0`) on Android. 
 
 **This Plugin is in active development!**
 
@@ -45,7 +46,7 @@ This Plugin is developed in Swift and automaticaly adds the Plugin to [Support S
 
 ## Android
 
-- ANDROID_NORDIC_VERSION - Version of `no.nordicsemi.android:dfu` / default to `1.9.0` 
+- ANDROID_NORDIC_VERSION - Version of `no.nordicsemi.android:dfu` / default to `1.11.0` 
 
 ## iOS
 

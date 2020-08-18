@@ -1,7 +1,7 @@
 # Advanced ImagePicker Cordova Plugin
 [![npm version](https://badge.fury.io/js/cordova-plugin-dfu-update.svg)](https://badge.fury.io/js/cordova-plugin-dfu-update)
 
-This [Cordova](https://cordova.apache.org) Plugin is a Wrapper to ue Nordic Semiconductor's Device Firmware Update (DFU) service to update a Bluetooth LE device.
+This [Cordova](https://cordova.apache.org) Plugin is a Wrapper to use Nordic Semiconductor's Device Firmware Update (DFU) service to update a Bluetooth LE device.
 
 It currently uses [iOSDFULibrary](https://cocoapods.org/pods/iOSDFULibrary) (Version `4.8.0`) on iOS and 
 [Android-DFU-Library](https://github.com/NordicSemiconductor/Android-DFU-Library) (Default-Version `1.9.0`) on Android. 
@@ -68,7 +68,7 @@ Start the Firmware-Update proccess
 ### Parameters:
 
 - fileURL (string) - A string that is the path to the file to use in the update. It can be either in either `cdvfile://` or `file://` format.
-- deviceIdentifier (string) -A string that contains the identifier for the Bluetooth LE device to update. It will either be a MAC address (on Android) or a UUID (on iOS).
+- deviceIdentifier (string) - A string that contains the identifier for the Bluetooth LE device to update. It will either be a MAC address (on Android) or a UUID (on iOS).
 
 ```js
 window.DfuUpdate.updateFirmware(function(success) {

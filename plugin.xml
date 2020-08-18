@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-dfu-update" version="1.1.0">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-dfu-update" version="1.2.0">
     <name>DFU Update</name>
     <description>Use Nordic Semiconductor's Device Firmware Update (DFU) service to update a Bluetooth LE device</description>
-    <keywords>cordova,update,dfu,firmware,upgrade</keywords>
+
     <repo>https://github.com/HansKrywaa/cordova-plugin-dfu-update.git</repo>
     <issue>https://github.com/HansKrywaa/cordova-plugin-dfu-update/issues</issue>
+
+    <license>MIT</license>
 
     <engines>
         <engine name="cordova" version=">=9.0.0"/>
@@ -19,13 +21,13 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="DfuUpdate">
-                <param name="android-package" value="de.hanskrywaa.DfuUpdate" />
+                <param name="android-package" value="de.hanskrywaa.DfuUpdate.DfuUpdate" />
             </feature>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity android:name="de.hanskrywaa.NotificationActivity" />
-            <service android:name="de.hanskrywaa.DfuService" />
+            <activity android:name="de.hanskrywaa.DfuUpdate.NotificationActivity" />
+            <service android:name="de.hanskrywaa.DfuUpdate.DfuService" />
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
@@ -34,12 +36,14 @@
             <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
         </config-file>
 
-        <framework src="no.nordicsemi.android:dfu:1.9.0"/>
-        <framework src="androidx.lifecycle:lifecycle-extensions:2.1.0-alpha04"/>
 
-        <source-file src="src/android/DfuUpdate.java" target-dir="src/de/hanskrywaa" />
-        <source-file src="src/android/DfuService.java" target-dir="src/de/hanskrywaa"/>
-        <source-file src="src/android/NotificationActivity.java" target-dir="src/de/hanskrywaa"/>
+        <preference name="ANDROID_NORDIC_VERSION" default="1.11.0" />
+        <framework src="no.nordicsemi.android:dfu:$ANDROID_NORDIC_VERSION"/>
+        <framework src="androidx.lifecycle:lifecycle-extensions:2.2.0"/>
+
+        <source-file src="src/android/DfuUpdate.java" target-dir="src/de/hanskrywaa/DfuUpdate" />
+        <source-file src="src/android/DfuService.java" target-dir="src/de/hanskrywaa/DfuUpdate"/>
+        <source-file src="src/android/NotificationActivity.java" target-dir="src/de/hanskrywaa/DfuUpdate"/>
     </platform>
     <platform name="ios">
         <config-file target="config.xml" parent="/widget">
@@ -56,7 +60,7 @@
                 <source url="https://cdn.cocoapods.org/"/>
             </config>
             <pods use-frameworks="true">
-                <pod name="iOSDFULibrary" spec="4.6.1" />
+                <pod name="iOSDFULibrary" spec="4.8.0" />
             </pods>
         </podspec>
 

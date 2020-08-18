@@ -1,58 +1,83 @@
-# Cordova Nordic DFU plugin [![npm version](https://badge.fury.io/js/cordova-plugin-dfu-update.svg)](https://badge.fury.io/js/cordova-plugin-dfu-update)
+# Advanced ImagePicker Cordova Plugin
+[![npm version](https://badge.fury.io/js/cordova-plugin-dfu-update.svg)](https://badge.fury.io/js/cordova-plugin-dfu-update)
 
-This plugin allows you to use the Nordic DFU service on your BLE devices to update the firmware. See the [Nordic documentation](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v12.2.0/index.html) for more details.
+This [Cordova](https://cordova.apache.org) Plugin is a Wrapper to ue Nordic Semiconductor's Device Firmware Update (DFU) service to update a Bluetooth LE device.
 
-## Supported
+It currently uses [iOSDFULibrary](https://cocoapods.org/pods/iOSDFULibrary) (Version `4.8.0`) on iOS and 
+[Android-DFU-Library](https://github.com/NordicSemiconductor/Android-DFU-Library) (Default-Version `1.9.0`) on Android. 
 
-- Android: fully supported
-- iOS: fully supported
+**This Plugin is in active development!**
 
-Additionally, the device to update must follow the rules as defined in the DFU documentation.
+<!-- DONATE -->
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG_global.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LMX5TSQVMNMU6&source=url)
 
-- Supported SDKs: 
-  - Android: [v1.9.0](https://github.com/NordicSemiconductor/Android-DFU-Library/tree/v1.9.0)
-  - iOS: [v4.4.1](https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library/tree/4.4.1) (Uses Swift)
+This and other Open-Source Cordova Plugins are developed in my free time.
+To help ensure this plugin is kept updated, new features are added and bugfixes are implemented quickly, please donate a couple of dollars (or a little more if you can stretch) as this will help me to afford to dedicate time to its maintenance.
+Please consider donating if you're using this plugin in an app that makes you money, if you're being paid to make the app, if you're asking for new features or priority bug fixes.
+<!-- END DONATE -->
 
-## Requirements
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Content**
 
-- Cordova: at least version 9
-- Android: Cordova-android of at least 8.0.0
+- [Install](#install)
+  - [Android](#android)
+  - [iOS](#ios)
+- [Environment Variables](#environment-variables)
+  - [Android](#android-1)
+  - [iOS](#ios-1)
+- [Usage](#usage)
+- [Api](#api)
+  - [updateFirmware](#updatefirmware)
+- [Changelog](#changelog)
 
-## Installation
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-run:
-`cordova plugin add cordova-plugin-dfu-update`
+# Install
 
-## API
+## Android
 
-The API is available as a global `window.DfuUpdate` object
+## iOS
 
-### Update Firmware
+This Plugin is developed in Swift and automaticaly adds the Plugin to [Support Swift](https://github.com/akofman/cordova-plugin-add-swift-support).
 
-```javascript
-DfuUpdate.updateFirmware(function successCallback, function errorCallback, string fileURL, string deviceIdentifier);
+# Environment Variables
+
+## Android
+
+- ANDROID_NORDIC_VERSION - Version of `no.nordicsemi.android:dfu` / default to `1.9.0` 
+
+## iOS
+
+# Usage
+
+The plugin is available via a global variable named `window.DfuUpdate`.
+A TypeScript definition is included out of the Box. You can import it like this:
+```ts
+import DfuUpdate from 'cordova-plugin-dfu-update';
 ```
 
-Params:
+# Api
 
-- `successCallback`: A function that takes a single argument object. See example later for what this looks like. This will be called multiple times during the update process with different statuses.
-- `errorCallback` A function that takes a single argument. The argument will be an error message or an error object.
-- `fileURL`: A string that is the path to the file to use in the update. It can be either in either `cdvfile://` or `file://` format.
-- `deviceIdentifier`: A string that contains the identifier for the Bluetooth LE device to update. It will either be a MAC address (on Android) or a UUID (on iOS).
-   
+The list of available methods for this plugin is described below.
 
-### Testing
+## updateFirmware
 
-To make it easier to test this plugin, there are two files in the `test-files` folder. 
+Start the Firmware-Update proccess
 
-1. Install the one ending in `.hex` on your nRF52-832 dev board by dragging on dropping it into the board's file system (like you would install any example from the nRF5 SDK). 
-1. Put the file ending with `.zip` on your phone in a spot where you know the File URL. 
-1. Get the MAC address of the dev board (use nRF Connect and look for a device called "Nordic_Buttonless")
-1. Use the File URL and MAC address with this plugin.
-1. It should start the DFU process and report progress to the success callback.
+### Parameters:
 
-### Credits
+- fileURL (string) - A string that is the path to the file to use in the update. It can be either in either `cdvfile://` or `file://` format.
+- deviceIdentifier (string) -A string that contains the identifier for the Bluetooth LE device to update. It will either be a MAC address (on Android) or a UUID (on iOS).
 
-This plugin was inspired by the work on [this plugin fork](https://github.com/fxe-gear/cordova-plugin-ble-central) by [@fxe-gear](https://github.com/fxe-gear).
+```js
+window.DfuUpdate.updateFirmware(function(success) {
+  console.log(success);
+}, function (error) {
+  console.error(error);
+}, 'file_url', 'deviceId');
+```
 
-Thanks!
+# Changelog
+
+The full Changelog is available [here](CHANGELOG.md)

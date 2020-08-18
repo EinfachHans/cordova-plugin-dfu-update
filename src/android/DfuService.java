@@ -1,4 +1,4 @@
-package de.hanskrywaa;
+package de.hanskrywaa.DfuUpdate;
 
 import android.app.Activity;
 import no.nordicsemi.android.dfu.DfuBaseService;

@@ -1,4 +1,4 @@
-package de.hanskrywaa;
+package de.hanskrywaa.DfuUpdate;
 
 import android.Manifest;
 import android.app.Activity;

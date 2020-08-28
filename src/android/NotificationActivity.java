@@ -1,4 +1,4 @@
-package de.hanskrywaa.DfuUpdate;
+package de.einfachhans.DfuUpdate;
 
 import android.app.Activity;
 import android.content.Context;

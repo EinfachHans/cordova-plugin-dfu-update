@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.1
+- Github Username changed -> Links & Package Name adjusted
+
 ## 1.2.0
 - Increase androix Lifecycle Version
 - Use the Android Framework by `ANDROID_NORDIC_VERSION` (default **1.11.0**)

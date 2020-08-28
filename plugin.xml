@@ -3,8 +3,8 @@
     <name>DFU Update</name>
     <description>Use Nordic Semiconductor's Device Firmware Update (DFU) service to update a Bluetooth LE device</description>
 
-    <repo>https://github.com/HansKrywaa/cordova-plugin-dfu-update.git</repo>
-    <issue>https://github.com/HansKrywaa/cordova-plugin-dfu-update/issues</issue>
+    <repo>https://github.com/EinfachHans/cordova-plugin-dfu-update.git</repo>
+    <issue>https://github.com/EinfachHans/cordova-plugin-dfu-update/issues</issue>
 
     <license>MIT</license>
 
@@ -21,13 +21,13 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="DfuUpdate">
-                <param name="android-package" value="de.hanskrywaa.DfuUpdate.DfuUpdate" />
+                <param name="android-package" value="de.einfachhans.DfuUpdate.DfuUpdate" />
             </feature>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity android:name="de.hanskrywaa.DfuUpdate.NotificationActivity" />
-            <service android:name="de.hanskrywaa.DfuUpdate.DfuService" />
+            <activity android:name="de.einfachhans.DfuUpdate.NotificationActivity" />
+            <service android:name="de.einfachhans.DfuUpdate.DfuService" />
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
@@ -41,9 +41,9 @@
         <framework src="no.nordicsemi.android:dfu:$ANDROID_NORDIC_VERSION"/>
         <framework src="androidx.lifecycle:lifecycle-extensions:2.2.0"/>
 
-        <source-file src="src/android/DfuUpdate.java" target-dir="src/de/hanskrywaa/DfuUpdate" />
-        <source-file src="src/android/DfuService.java" target-dir="src/de/hanskrywaa/DfuUpdate"/>
-        <source-file src="src/android/NotificationActivity.java" target-dir="src/de/hanskrywaa/DfuUpdate"/>
+        <source-file src="src/android/DfuUpdate.java" target-dir="src/de/einfachhans/DfuUpdate" />
+        <source-file src="src/android/DfuService.java" target-dir="src/de/einfachhans/DfuUpdate"/>
+        <source-file src="src/android/NotificationActivity.java" target-dir="src/de/einfachhans/DfuUpdate"/>
     </platform>
     <platform name="ios">
         <config-file target="config.xml" parent="/widget">

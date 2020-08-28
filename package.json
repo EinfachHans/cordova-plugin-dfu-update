@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HansKrywaa/cordova-plugin-dfu-update.git"
+    "url": "git+https://github.com/EinfachHans/cordova-plugin-dfu-update.git"
   },
   "keywords": [
     "cordova",
@@ -33,7 +33,7 @@
     "doctoc": "doctoc readme.md --github --title '**Table of Content**' --maxlevel 2"
   },
   "bugs": {
-    "url": "https://github.com/HansKrywaa/cordova-plugin-dfu-update/issues"
+    "url": "https://github.com/EinfachHans/cordova-plugin-dfu-update/issues"
   },
-  "homepage": "https://github.com/HansKrywaa/cordova-plugin-dfu-update.git"
+  "homepage": "https://github.com/EinfachHans/cordova-plugin-dfu-update.git"
 }

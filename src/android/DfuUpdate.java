@@ -2,15 +2,14 @@ package de.einfachhans.DfuUpdate;
 
 import android.Manifest;
 import android.app.Activity;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.ProcessLifecycleOwner;
 import android.bluetooth.BluetoothAdapter;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
-import no.nordicsemi.android.dfu.DfuProgressListenerAdapter;
-import no.nordicsemi.android.dfu.DfuServiceInitiator;
-import no.nordicsemi.android.dfu.DfuServiceListenerHelper;
+
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ProcessLifecycleOwner;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaResourceApi;
@@ -18,6 +17,10 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import no.nordicsemi.android.dfu.DfuProgressListenerAdapter;
+import no.nordicsemi.android.dfu.DfuServiceInitiator;
+import no.nordicsemi.android.dfu.DfuServiceListenerHelper;
 
 public class DfuUpdate extends CordovaPlugin {
 
@@ -28,8 +31,7 @@ public class DfuUpdate extends CordovaPlugin {
 	private CallbackContext dfuCallback;
 	private Activity activity;
 	private String deviceAddress;
-
-	private boolean isInForeground;
+	private int packetReceiptNotificationsValue;
 
 	private String fileURL;
 	private final String COARSE = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -38,50 +40,53 @@ public class DfuUpdate extends CordovaPlugin {
 
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-	    if (action.equals("updateFirmware")) {
-	        String deviceId = args.getString(0);
-	        String fileURL = args.getString(1);
+		if (action.equals("updateFirmware")) {
+			this.updateFirmware(args, callbackContext);
+			return true;
+		}
+		return false;
+	}
 
-	        if (deviceId == null || deviceId.equals("null")) {
-                callbackContext.error("Device id is required");
-                return true;
-            }
+	private void updateFirmware(JSONArray args, CallbackContext callbackContext) throws JSONException {
+		JSONObject options = args.getJSONObject(0);
+		String deviceId = options.optString("deviceId");
+		String fileURL = options.optString("fileUrl");
+		int packetReceiptNotificationsValue = options.optInt("packetReceiptNotificationsValue", 10);
 
-            if (fileURL == null || fileURL.equals("null")) {
-                callbackContext.error("File URL is required");
-                return true;
-            }
+		if (deviceId.equals("")) {
+			callbackContext.error("Device id is required");
+		}
 
-		    if (!BluetoothAdapter.checkBluetoothAddress(deviceId)) {
-		    	callbackContext.error("Invalid Bluetooth address");
-		    	return true;
-		    }
+		if (fileURL.equals("")) {
+			callbackContext.error("File URL is required");
+		}
 
-		    if (!ProcessLifecycleOwner.get().getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-		    	callbackContext.error("App must be in the foreground to start DFU");
-		    	return true;
-		    }
+		if (!BluetoothAdapter.checkBluetoothAddress(deviceId)) {
+			callbackContext.error("Invalid Bluetooth address");
+		}
 
-		    dfuCallback = callbackContext;
-		    activity = cordova.getActivity();
-		    deviceAddress = deviceId;
-		    this.fileURL = fileURL;
-		    if (hasPerms()){
-			    updateFirmware();
+		if (!ProcessLifecycleOwner.get().getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+			callbackContext.error("App must be in the foreground to start DFU");
+		}
 
-		    } else {
-			    int REQUEST_PERMS_CODE = 234;
-			    cordova.requestPermissions(this, REQUEST_PERMS_CODE, permissions);
-		    }
-	        return true;
-	    }
-	    return false;
+		this.dfuCallback = callbackContext;
+		this.activity = cordova.getActivity();
+		this.deviceAddress = deviceId;
+		this.fileURL = fileURL;
+		this.packetReceiptNotificationsValue = packetReceiptNotificationsValue;
+
+		if (hasPerms()){
+			performUpdateFirmware();
+		} else {
+			int REQUEST_PERMS_CODE = 234;
+			cordova.requestPermissions(this, REQUEST_PERMS_CODE, permissions);
+		}
 	}
 
 	public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) throws JSONException {
 
-		if( hasPerms()) {
-			updateFirmware();
+		if(hasPerms()) {
+			performUpdateFirmware();
 		} else {
 			this.dfuCallback.error("Permission denied");
 		}
@@ -92,9 +97,7 @@ public class DfuUpdate extends CordovaPlugin {
 	}
 
 
-	private void updateFirmware() {
-
-
+	private void performUpdateFirmware() {
 		cordova.getThreadPool().execute(() -> {
 			CordovaResourceApi resourceApi = webView.getResourceApi();
 			Uri fileUriStr;
@@ -108,7 +111,7 @@ public class DfuUpdate extends CordovaPlugin {
 					.setKeepBond(false)
 					.setForceDfu(false)
 					.setPacketsReceiptNotificationsEnabled(true)
-					.setPacketsReceiptNotificationsValue(10)
+					.setPacketsReceiptNotificationsValue(packetReceiptNotificationsValue)
 					.setUnsafeExperimentalButtonlessServiceInSecureDfuEnabled(true)
 					.setDisableNotification(true);
 			starter.setZip(fileUriStr);

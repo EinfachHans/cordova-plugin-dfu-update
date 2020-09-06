@@ -67,16 +67,20 @@ The list of available methods for this plugin is described below.
 Start the Firmware-Update proccess
 
 ### Parameters:
-
-- fileURL (string) - A string that is the path to the file to use in the update. It can be either in either `cdvfile://` or `file://` format.
-- deviceIdentifier (string) - A string that contains the identifier for the Bluetooth LE device to update. It will either be a MAC address (on Android) or a UUID (on iOS).
+- An Object, which has the following Values: 
+    - fileUrl (string) - A string that is the path to the file to use in the update. It can be either in either `cdvfile://` or `file://` format.
+    - deviceId (string) - A string that contains the identifier for the Bluetooth LE device to update. It will either be a MAC address (on Android) or a UUID (on iOS).
+    - packetReceiptNotificationsValue (number) - See [here](https://infocenter.nordicsemi.com/index.jsp?topic=%2Fcom.nordic.infocenter.sdk5.v11.0.0%2Fbledfu_transport_bleservice.html) (Default to **10**)
 
 ```js
 window.DfuUpdate.updateFirmware(function(success) {
   console.log(success);
 }, function (error) {
   console.error(error);
-}, 'file_url', 'deviceId');
+}, {
+  fileUrl: 'fileUrl',
+  deviceId: 'deviceId'
+});
 ```
 
 # Changelog

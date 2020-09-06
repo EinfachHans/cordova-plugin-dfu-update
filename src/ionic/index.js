@@ -5,7 +5,7 @@ var DfuUpdate = /** @class */ (function () {
   function DfuUpdate() {
   }
 
-  DfuUpdate.updateFirmware = function (resultCallback, errorCallback, fileURL, deviceIdentifier) {
+  DfuUpdate.updateFirmware = function (resultCallback, errorCallback, options) {
     var plu = plugin();
     return plu.updateFirmware.apply(plu, arguments);
   };

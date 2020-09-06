@@ -17,15 +17,49 @@ import iOSDFULibrary
         commandDelegate.run {
             self.dfuCallbackId = command.callbackId
 
-
             var pluginResult = CDVPluginResult(
                 status: CDVCommandStatus_ERROR
             )
 
-            let deviceId = command.arguments[0] as? String ?? ""
-            let fileURL = command.arguments[1] as? String ?? ""
+            let options = command.argument(at: 0) as? NSDictionary;
+            if(options == nil) {
+                self.commandDelegate!.send(
+                    CDVPluginResult(
+                        status: CDVCommandStatus_ERROR,
+                        messageAs: "The first Argument must be the Configuration"
+                    ),
+                    callbackId: self.dfuCallbackId
+                )
+                return;
+            }
 
-            if deviceId.count < 1 {
+            let deviceId = options?.value(forKey: "deviceId") as? String
+            let fileURL = options?.value(forKey: "fileUrl") as? String;
+            let packetReceiptNotificationsValue = options?.value(forKey: "packetReceiptNotificationsValue") as? NSInteger ?? 10;
+
+            if(deviceId == nil) {
+                self.commandDelegate!.send(
+                    CDVPluginResult(
+                        status: CDVCommandStatus_ERROR,
+                        messageAs: "Device id is required"
+                    ),
+                    callbackId: self.dfuCallbackId
+                )
+                return;
+            }
+
+            if(fileURL == nil) {
+                self.commandDelegate!.send(
+                    CDVPluginResult(
+                        status: CDVCommandStatus_ERROR,
+                        messageAs: "File URL is required"
+                    ),
+                    callbackId: self.dfuCallbackId
+                )
+                return;
+            }
+
+            if deviceId!.count < 1 {
 
                 self.commandDelegate!.send(
                     CDVPluginResult(
@@ -38,7 +72,7 @@ import iOSDFULibrary
                 return
             }
 
-            if (fileURL.count < 1) {
+            if (fileURL!.count < 1) {
 
                 self.commandDelegate!.send(
                     CDVPluginResult(
@@ -46,15 +80,14 @@ import iOSDFULibrary
                         messageAs: "File URL is required"
                     ),
                     callbackId: self.dfuCallbackId
-
                 )
                 return
             }
 
-            if (deviceId.count > 0 && fileURL.count > 0) {
-                let sourceURL = self.getURI(url: fileURL)
+            if (deviceId!.count > 0 && fileURL!.count > 0) {
+                let sourceURL = self.getURI(url: fileURL!)
 
-                pluginResult = self.startUpgrade(deviceId: deviceId, url: sourceURL)
+                pluginResult = self.startUpgrade(deviceId: deviceId!, url: sourceURL, packetReceiptNotificationsValue: packetReceiptNotificationsValue);
             }
 
 
@@ -65,7 +98,7 @@ import iOSDFULibrary
         }
     }
 
-    func startUpgrade(deviceId: String, url: URL) -> CDVPluginResult {
+    func startUpgrade(deviceId: String, url: URL, packetReceiptNotificationsValue: NSInteger) -> CDVPluginResult {
         let selectedFirmware = DFUFirmware(urlToZipFile: url)
 
         if (!(selectedFirmware?.valid ?? true)) {
@@ -84,7 +117,7 @@ import iOSDFULibrary
             )
         }
 
-        var peripherals = manager.retrievePeripherals(withIdentifiers: [deviceUUID!])
+        let peripherals = manager.retrievePeripherals(withIdentifiers: [deviceUUID!])
         if (peripherals.count < 1) {
             return CDVPluginResult(
                 status: CDVCommandStatus_ERROR,
@@ -98,7 +131,7 @@ import iOSDFULibrary
         let initiator = DFUServiceInitiator(queue: DispatchQueue(label: "Other"))
 
         initiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = true
-        initiator.packetReceiptNotificationParameter = 10
+        initiator.packetReceiptNotificationParameter = UInt16(packetReceiptNotificationsValue)
         initiator.forceDfu = false
         initiator.delegate = self
         initiator.progressDelegate = self

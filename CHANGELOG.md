@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/EinfachHans/cordova-plugin-dfu-update/compare/V1.3.0...V1.4.0) (2021-10-13)
+
+
+### Features
+
+* **ios:** update iosDfuLibrary version to 4.11.1 ([#8](https://github.com/EinfachHans/cordova-plugin-dfu-update/issues/8)) ([e730e3b](https://github.com/EinfachHans/cordova-plugin-dfu-update/commit/e730e3b7d5fd12e0e518c1a302b98768fb769dd1))
+
 ## 1.3.0
 - `packetReceiptNotificationsValue` can be set now (default to **10**) (closes #5)
 - **BREAKING**: All Options need to be passed via an Object now

@@ -1,5 +1,5 @@
 # DfuUpdate Cordova Plugin
-![Maintenance](https://img.shields.io/maintenance/yes/2020)
+![Maintenance](https://img.shields.io/maintenance/yes/2021)
 [![npm version](https://badge.fury.io/js/cordova-plugin-dfu-update.svg)](https://badge.fury.io/js/cordova-plugin-dfu-update)
 
 This [Cordova](https://cordova.apache.org) Plugin is a Wrapper to use Nordic Semiconductor's Device Firmware Update (DFU) service to update a Bluetooth LE device.

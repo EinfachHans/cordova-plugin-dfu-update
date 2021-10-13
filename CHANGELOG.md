@@ -1,5 +1,3 @@
-# Changelog
-
 ## 1.3.0
 - `packetReceiptNotificationsValue` can be set now (default to **10**) (closes #5)
 - **BREAKING**: All Options need to be passed via an Object now

@@ -12,7 +12,7 @@
     "doctoc": "2.0.1"
   },
   "scripts": {
-    "doctoc": "doctoc readme.md --github --title '**Table of Content**' --maxlevel 2"
+    "doctoc": "doctoc README.md --github --title '**Table of Content**' --maxlevel 2"
   },
   "cordova": {
     "id": "cordova-plugin-dfu-update",

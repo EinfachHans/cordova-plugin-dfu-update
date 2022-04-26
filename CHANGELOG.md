@@ -1,3 +1,10 @@
+### [1.4.1](https://github.com/EinfachHans/cordova-plugin-dfu-update/compare/V1.4.0...V1.4.1) (2022-04-26)
+
+
+### Bug Fixes
+
+* update dependency version of `cordova-plugin-file` to **7.0.0** ([c07de37](https://github.com/EinfachHans/cordova-plugin-dfu-update/commit/c07de37e58e5c06a5bc77ef94795aedccf8a3ced))
+
 ## [1.4.0](https://github.com/EinfachHans/cordova-plugin-dfu-update/compare/V1.3.0...V1.4.0) (2021-10-13)
 
 

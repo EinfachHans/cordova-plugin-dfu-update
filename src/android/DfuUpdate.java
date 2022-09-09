@@ -36,7 +36,8 @@ public class DfuUpdate extends CordovaPlugin {
 	private String fileURL;
 	private final String COARSE = Manifest.permission.ACCESS_COARSE_LOCATION;
 	private final String BLUETOOTH = Manifest.permission.BLUETOOTH;
-	private final String [] permissions = { COARSE, BLUETOOTH};
+	private final String BLUETOOTH_CONNECT = Manifest.permission.BLUETOOTH_CONNECT;
+	private final String [] permissions = { COARSE, BLUETOOTH, BLUETOOTH_CONNECT };
 
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -93,7 +94,7 @@ public class DfuUpdate extends CordovaPlugin {
 	}
 
 	private boolean hasPerms() {
-		return cordova.hasPermission(COARSE) && cordova.hasPermission(BLUETOOTH);
+		return cordova.hasPermission(COARSE) && (cordova.hasPermission(BLUETOOTH) || cordova.hasPermission(BLUETOOTH_CONNECT));
 	}
 
 

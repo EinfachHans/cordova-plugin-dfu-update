@@ -36,7 +36,8 @@ public class DfuUpdate extends CordovaPlugin {
 	private String fileURL;
 	private final String COARSE = Manifest.permission.ACCESS_COARSE_LOCATION;
 	private final String BLUETOOTH = Manifest.permission.BLUETOOTH;
-	private final String [] permissions = { COARSE, BLUETOOTH};
+	private final String BLUETOOTH_CONNECT = Manifest.permission.BLUETOOTH_CONNECT;
+	private final String[] permissions = { COARSE, BLUETOOTH, BLUETOOTH_CONNECT };
 
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -75,7 +76,7 @@ public class DfuUpdate extends CordovaPlugin {
 		this.fileURL = fileURL;
 		this.packetReceiptNotificationsValue = packetReceiptNotificationsValue;
 
-		if (hasPerms()){
+		if (hasPerms()) {
 			performUpdateFirmware();
 		} else {
 			int REQUEST_PERMS_CODE = 234;
@@ -83,9 +84,10 @@ public class DfuUpdate extends CordovaPlugin {
 		}
 	}
 
-	public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) throws JSONException {
+	public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults)
+			throws JSONException {
 
-		if(hasPerms()) {
+		if (hasPerms()) {
 			performUpdateFirmware();
 		} else {
 			this.dfuCallback.error("Permission denied");
@@ -93,9 +95,9 @@ public class DfuUpdate extends CordovaPlugin {
 	}
 
 	private boolean hasPerms() {
-		return cordova.hasPermission(COARSE) && cordova.hasPermission(BLUETOOTH);
+		return (cordova.hasPermission(COARSE) && cordova.hasPermission(BLUETOOTH))
+				|| cordova.hasPermission(BLUETOOTH_CONNECT);
 	}
-
 
 	private void performUpdateFirmware() {
 		cordova.getThreadPool().execute(() -> {
@@ -198,14 +200,15 @@ public class DfuUpdate extends CordovaPlugin {
 				json.put("errorType", errorType);
 				json.put("message", message);
 			} catch (JSONException e) {
-				//squelch
+				// squelch
 			}
 			dfuCallback.error(json);
 			unregisterDfuProgressListener();
 		}
 
 		@Override
-		public void onProgressChanged(String deviceAddress, int percent, float speed, float avgSpeed, int currentPart, int partsTotal) {
+		public void onProgressChanged(String deviceAddress, int percent, float speed, float avgSpeed, int currentPart,
+				int partsTotal) {
 			Log.d(TAG, "sendDfuProgress: " + percent);
 
 			JSONObject json = new JSONObject();
